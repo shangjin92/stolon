@@ -33,4 +33,10 @@ EXPOSE 5432
 # copy the agola-web dist
 COPY --from=builder /stolon/bin/ /usr/local/bin
 
+# copy zhparser extension
+COPY --from=builder /stolon/extensions/zhparser/pgsql-10/tsearch_data/ /usr/share/postgresql/10/tsearch_data
+COPY --from=builder /stolon/extensions/zhparser/pgsql-10/usr-local-lib/ /usr/local/lib
+COPY --from=builder /stolon/extensions/zhparser/pgsql-10/pg-lib/ /usr/lib/postgresql/10/lib
+COPY --from=builder /stolon/extensions/zhparser/pgsql-10/extension/ /usr/share/postgresql/10/extension
+
 RUN chmod +x /usr/local/bin/stolon-keeper /usr/local/bin/stolon-sentinel /usr/local/bin/stolon-proxy /usr/local/bin/stolonctl
